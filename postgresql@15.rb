@@ -1,6 +1,10 @@
 class PostgresqlAT15 < Formula
   desc "Relational database management system"
   homepage "https://www.postgresql.org/"
+  version = "15rc1"
+  url "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
+  version version
+  sha256 "576476fab0d49f05f27625e1d6ed433e6e1358fabba92ae41780421e65fa7ad4"
   license "PostgreSQL"
 
   head do
@@ -24,6 +28,7 @@ class PostgresqlAT15 < Formula
   depends_on "python@3"
   depends_on "readline"
   depends_on "tcl-tk"
+  depends_on "zstd"
   depends_on "llvm" => :optional
 
   def install
@@ -44,6 +49,7 @@ class PostgresqlAT15 < Formula
       --with-perl
       --with-python
       --with-tcl
+      --with-zstd
       PYTHON=python3
       XML2_CONFIG=:
     ]
