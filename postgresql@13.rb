@@ -102,7 +102,7 @@ class PostgresqlAT13 < Formula
     log_path var/"log/postgresql@13.log"
     error_log_path var/"log/postgresql@13.log"
     working_dir HOMEBREW_PREFIX
-    environment_variables LC_ALL: en_US.UTF-8
+    environment_variables LC_ALL: "en_US.UTF-8"
   end
 
   test do
