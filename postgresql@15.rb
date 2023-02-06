@@ -92,6 +92,15 @@ class PostgresqlAT15 < Formula
       - brew link -f #{name}
     EOS
   end
+  
+  service do
+    run [opt_bin/"postgres", "-D", var/"postgresql@15"]
+    keep_alive true
+    log_path var/"log/postgresql@15.log"
+    error_log_path var/"log/postgresql@15.log"
+    working_dir HOMEBREW_PREFIX
+    environment_variables LC_ALL: "en_US.UTF-8"
+  end
 
   test do
     system "#{bin}/initdb", "pgdata"
