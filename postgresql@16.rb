@@ -97,6 +97,15 @@ class PostgresqlAT16 < Formula
     EOS
   end
 
+  service do
+    run [opt_bin/"postgres", "-D", var/"postgresql@16"]
+    keep_alive true
+    log_path var/"log/postgresql@16.log"
+    error_log_path var/"log/postgresql@16.log"
+    working_dir HOMEBREW_PREFIX
+    environment_variables LC_ALL: "en_US.UTF-8"
+  end
+
   test do
     system "#{bin}/initdb", "pgdata"
   end
