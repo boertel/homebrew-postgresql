@@ -1,9 +1,9 @@
 class PostgresqlAT13 < Formula
   desc "Relational database management system"
   homepage "https://www.postgresql.org/"
-  version = "13.9"
+  version = "13.13"
   url "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
-  sha256 "ef1966c0a5e49fbed3370ad2824928cb6b1164617aeeae1606da283f7f33a415"
+  sha256 "8af69c2599047a2ad246567d68ec4131aef116954d8c3e469e9789080b37a474"
   license "PostgreSQL"
 
   livecheck do

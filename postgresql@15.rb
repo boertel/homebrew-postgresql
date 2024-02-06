@@ -1,14 +1,14 @@
 class PostgresqlAT15 < Formula
   desc "Relational database management system"
   homepage "https://www.postgresql.org/"
-  version = "15.1"
+  version = "15.5"
   url "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
   version version
-  sha256 "64fdf23d734afad0dfe4077daca96ac51dcd697e68ae2d3d4ca6c45cb14e21ae"
+  sha256 "8f53aa95d78eb8e82536ea46b68187793b42bba3b4f65aa342f540b23c9b10a6"
   license "PostgreSQL"
 
   head do
-    url "https://git.postgresql.org/git/postgresql.git", branch: "master"
+    url "https://git.postgresql.org/git/postgresql.git", branch: "REL_15_STABLE"
 
     depends_on "docbook-xsl" => :build
   end
@@ -17,6 +17,9 @@ class PostgresqlAT15 < Formula
 
   option "with-cassert", "Enable assertion checks (for debugging)"
   deprecated_option "enable-cassert" => "with-cassert"
+
+  # https://www.postgresql.org/support/versioning/
+  deprecate! date: "2027-11-11", because: :unsupported
 
   depends_on "pkg-config" => :build
 

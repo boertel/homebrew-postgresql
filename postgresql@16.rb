@@ -1,18 +1,14 @@
-class PostgresqlAT11 < Formula
+class PostgresqlAT16 < Formula
   desc "Relational database management system"
   homepage "https://www.postgresql.org/"
-  version = "11.22"
+  version = "16.1"
   url "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
-  sha256 "2cb7c97d7a0d7278851bbc9c61f467b69c094c72b81740b751108e7892ebe1f0"
+  version version
+  sha256 "ce3c4d85d19b0121fe0d3f8ef1fa601f71989e86f8a66f7dc3ad546dd5564fec"
   license "PostgreSQL"
 
-  livecheck do
-    url "https://ftp.postgresql.org/pub/source/"
-    regex(%r{href=["']?v?(11(?:\.\d+)*)/?["' >]}i)
-  end
-
   head do
-    url "https://git.postgresql.org/git/postgresql.git", branch: "REL_11_STABLE"
+    url "https://git.postgresql.org/git/postgresql.git", branch: "REL_16_STABLE"
 
     depends_on "docbook-xsl" => :build
   end
@@ -23,17 +19,20 @@ class PostgresqlAT11 < Formula
   deprecated_option "enable-cassert" => "with-cassert"
 
   # https://www.postgresql.org/support/versioning/
-  deprecate! date: "2023-11-09", because: :unsupported
+  deprecate! date: "2028-11-09", because: :unsupported
 
   depends_on "pkg-config" => :build
 
   depends_on "gettext"
   depends_on "icu4c"
+  depends_on "krb5"
+  depends_on "lz4"
   depends_on "openldap"
   depends_on "openssl@1.1"
   depends_on "python@3"
   depends_on "readline"
   depends_on "tcl-tk"
+  depends_on "zstd"
   depends_on "llvm" => :optional
 
   def install
@@ -47,12 +46,14 @@ class PostgresqlAT11 < Formula
       --with-ldap
       --with-libxml
       --with-libxslt
+      --with-lz4
       --with-openssl
       --with-uuid=e2fs
       --with-pam
       --with-perl
       --with-python
       --with-tcl
+      --with-zstd
       PYTHON=python3
       XML2_CONFIG=:
     ]
