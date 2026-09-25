@@ -1,18 +1,14 @@
-class PostgresqlAT12 < Formula
+class PostgresqlAT19 < Formula
   desc "Relational database management system"
   homepage "https://www.postgresql.org/"
-  version = "12.22"
+  version = "19beta3"
   url "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
-  sha256 "8df3c0474782589d3c6f374b5133b1bd14d168086edbc13c6e72e67dd4527a3b"
+  version version
+  sha256 "ea4ad8933121930a58f23c73dc99c26a4184faca26faefa77d15ce0fba7dfe2c"
   license "PostgreSQL"
 
-  livecheck do
-    url "https://ftp.postgresql.org/pub/source/"
-    regex(%r{href=["']?v?(12(?:\.\d+)*)/?["' >]}i)
-  end
-
   head do
-    url "https://git.postgresql.org/git/postgresql.git", branch: "REL_12_STABLE"
+    url "https://git.postgresql.org/git/postgresql.git", branch: "master"
 
     depends_on "docbook-xsl" => :build
   end
@@ -23,18 +19,25 @@ class PostgresqlAT12 < Formula
   deprecated_option "enable-cassert" => "with-cassert"
 
   # https://www.postgresql.org/support/versioning/
-  deprecate! date: "2024-11-14", because: :unsupported
+  #deprecate! date: "2030-11-14", because: :unsupported
 
+  depends_on "docbook-xsl" => :build
   depends_on "pkg-config" => :build
 
   depends_on "gettext"
   depends_on "icu4c"
+  depends_on "krb5"
+  depends_on "lz4"
   depends_on "openldap"
   depends_on "openssl"
   depends_on "python@3"
   depends_on "readline"
   depends_on "tcl-tk"
+  depends_on "zstd"
   depends_on "llvm" => :optional
+
+  uses_from_macos "curl"
+  uses_from_macos "zlib"
 
   def install
     args = %W[
@@ -45,14 +48,17 @@ class PostgresqlAT12 < Formula
       --with-gssapi
       --with-icu
       --with-ldap
+      --with-libcurl
       --with-libxml
       --with-libxslt
+      --with-lz4
       --with-openssl
       --with-uuid=e2fs
       --with-pam
       --with-perl
       --with-python
       --with-tcl
+      --with-zstd
       PYTHON=python3
       XML2_CONFIG=:
     ]
@@ -94,14 +100,6 @@ class PostgresqlAT12 < Formula
       - Add #{opt_share}/man to your MANPATH
       - brew link -f #{name}
     EOS
-  end
-
-  service do
-    run [opt_bin/"postgres", "-D", var/"postgresql@12"]
-    keep_alive true
-    log_path var/"log/postgresql@12.log"
-    error_log_path var/"log/postgresql@12.log"
-    working_dir HOMEBREW_PREFIX
   end
 
   test do

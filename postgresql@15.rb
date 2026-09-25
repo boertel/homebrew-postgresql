@@ -1,10 +1,10 @@
 class PostgresqlAT15 < Formula
   desc "Relational database management system"
   homepage "https://www.postgresql.org/"
-  version = "15.5"
+  version = "15.19"
   url "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
   version version
-  sha256 "8f53aa95d78eb8e82536ea46b68187793b42bba3b4f65aa342f540b23c9b10a6"
+  sha256 "e1a64a87a46b825b88c082e4518161a47aab53c45694964f8ba1df28f7859f89"
   license "PostgreSQL"
 
   head do
@@ -27,7 +27,7 @@ class PostgresqlAT15 < Formula
   depends_on "icu4c"
   depends_on "lz4"
   depends_on "openldap"
-  depends_on "openssl@1.1"
+  depends_on "openssl"
   depends_on "python@3"
   depends_on "readline"
   depends_on "tcl-tk"
@@ -60,7 +60,7 @@ class PostgresqlAT15 < Formula
     # Add include and library directories of dependencies, so that
     # they can be used for compiling extensions.  Superenv does this
     # when compiling this package, but won't record it for pg_config.
-    deps = %w[gettext icu4c openldap openssl@1.1 readline tcl-tk]
+    deps = %w[gettext icu4c openldap openssl readline tcl-tk]
     with_includes = deps.map { |f| Formula[f].opt_include }.join(":")
     with_libraries = deps.map { |f| Formula[f].opt_lib }.join(":")
     args << "--with-includes=#{with_includes}"

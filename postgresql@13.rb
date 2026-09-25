@@ -1,9 +1,9 @@
 class PostgresqlAT13 < Formula
   desc "Relational database management system"
   homepage "https://www.postgresql.org/"
-  version = "13.13"
+  version = "13.23"
   url "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{version}.tar.bz2"
-  sha256 "8af69c2599047a2ad246567d68ec4131aef116954d8c3e469e9789080b37a474"
+  sha256 "6ec3c82726af92b7dec873fa1cdf881eca92a4219787dfad05acb6b10e041fd6"
   license "PostgreSQL"
 
   livecheck do
@@ -30,7 +30,7 @@ class PostgresqlAT13 < Formula
   depends_on "gettext"
   depends_on "icu4c"
   depends_on "openldap"
-  depends_on "openssl@1.1"
+  depends_on "openssl"
   depends_on "python@3"
   depends_on "readline"
   depends_on "tcl-tk"
@@ -60,7 +60,7 @@ class PostgresqlAT13 < Formula
     # Add include and library directories of dependencies, so that
     # they can be used for compiling extensions.  Superenv does this
     # when compiling this package, but won't record it for pg_config.
-    deps = %w[gettext icu4c openldap openssl@1.1 readline tcl-tk]
+    deps = %w[gettext icu4c openldap openssl readline tcl-tk]
     with_includes = deps.map { |f| Formula[f].opt_include }.join(":")
     with_libraries = deps.map { |f| Formula[f].opt_lib }.join(":")
     args << "--with-includes=#{with_includes}"
